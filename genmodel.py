@@ -41,7 +41,7 @@ class GenericModel:
 	def createModel	(self, aData) :
 		data = {}
 		for key, value in aData.iteritems() :
-			data[key] = value if not isinstance(value, dict) else self.__class__(value)
+			data[key.lower()] = value if not isinstance(value, dict) else self.__class__(value)
 		return data	
 
 	def __getattr__(self, method):
@@ -50,7 +50,8 @@ class GenericModel:
 				raise Exception('No such method Exists')
 			else :
 				def default(*args, **kwargs):
-					return getattr(self, method[:3])(method[3:], *args, **kwargs);
+					print method[3:].lower()
+					return getattr(self, method[:3])(method[3:].lower(), *args, **kwargs);
 				return default
 		except Exception as ex:
 			print "Exception : " , ex.args 
@@ -63,7 +64,7 @@ class GenericModel:
 
 #d = GenericModel({"name" : "jeeva", "add" : {"Hello":"Hi"}})
 #print d.getClassFields()
-#print d.getadd().getHello()
+#print d.getAdd().getHello()
 #d.setName("Hell")
 #print d.getName()
 #print d.hasValue()
