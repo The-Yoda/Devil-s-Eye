@@ -22,6 +22,11 @@ class MongoBase :
 	
 	def update(self, pattern, data, collection, option = 'set', _upsertStatus = False) :
 		_data = data.asDict()
+		if 'id' in _data :
+			raise TypeError("id can not be changed. Try removing id from the data to be saved/updated")
+		if 'id' in pattern :
+			pattern['_id'] = ObjectId(pattern['id'])
+			del pattern['id']
 		self._db[collection].update(pattern, { '$' + option : _data}, upsert = _upsertStatus)
 	
 	def save(self, pattern, data, collection, option = 'set') :
@@ -45,11 +50,11 @@ def getConf() :
 	# mocking getconfig 
 	return None
 
-#db = MongoBase("pymongo", "localhost", 27017)
+db = MongoBase("pymongo", "localhost", 27017)
 #db.insert(GenericModel({"name":"jeeva"}), "user")
 #print db.removeById("514dbe2a4443cf2a78438beb", "user")
 #print [user for user in db.find({"name":"jeeva"}, "user")]
-#db.update({"name":"jeeva"}, GenericModel({"age": 23}), "user")
+#db.update({'id': '514f0ff09392ba51be07f494'}, GenericModel({"age": 29, 'id': '514f0ff09392ba51be07f494'}), "user")
 #db.save({"name":"arpit"},GenericModel({"age":23}), "user")
 #print [user for user in db.find({"name":"jeeva"}, "user")]
 #print 'Hello' == u'Hello'
