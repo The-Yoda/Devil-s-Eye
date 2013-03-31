@@ -3,7 +3,6 @@ import json
 class GenericModel:
 
 	_aData = {}
-
 	def __init__(self, aData = {}) :
 		self._aData = self.createModel(aData)
 	
@@ -50,11 +49,14 @@ class GenericModel:
 
 	def __getattr__(self, method):
 		try:
+			if method in ("__str_", "__repr__") :
+				def default(*args, **kwargs):
+					return str(self.asDict())
+				return default
 			if method[:3] not in ['get', 'set', 'has', 'add', 'del'] :
 				raise Exception('No such method Exists')
 			else :
 				def default(*args, **kwargs):
-					print method[3:].lower()
 					return getattr(self, method[:3] + 'x')(method[3:].lower(), *args, **kwargs);
 				return default
 		except Exception as ex:
