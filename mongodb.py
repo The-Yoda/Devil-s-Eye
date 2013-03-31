@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from genmodel import GenericModel
+from genericmodel import GenericModel
 
-class MongoBase :
+class MongoDb :
 
 	def __init__(self, dbName = None, host = None, port = None) :
 		_host = getConf('host') if (host == None) else host
@@ -39,7 +39,6 @@ class MongoBase :
 	def _processResult(self, result) :
 		result['id'] = str(result['_id'])
 		del result['_id']
-		print type(result)
 		return GenericModel(result)
 	
 	def findById(self, _id, collection) :
@@ -66,7 +65,13 @@ class MongoBase :
 			_upsertStatus	: Default is false. setting this to true will insert the document.
 		"""
 
-def getConf() :
+def getConf(conf) :
+	if conf == "host" :
+		return 'localhost'
+	elif conf == 'port' :
+		return 27017
+	elif conf == 'db' :
+		return 'pymongo'
 	# mocking getconfig . Need to be implemented
 	return None
 
