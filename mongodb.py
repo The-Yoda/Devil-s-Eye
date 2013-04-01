@@ -12,7 +12,7 @@ class MongoDb :
 		self._db = connection[_dbName]
 
 	def insert(self, data, collection) :
-		self._db[collection].insert(data.asDict())
+		return self._db[collection].insert(data.asDict())
 	
 	def remove(self, pattern, collection) :
 		self._db[collection].remove(pattern)
@@ -43,6 +43,7 @@ class MongoDb :
 	
 	def findById(self, _id, collection) :
 		result = self._db[collection].find_one({"_id": ObjectId(_id)})
+		if result is None: return result
 		return self._processResult(result)
 
 		"""

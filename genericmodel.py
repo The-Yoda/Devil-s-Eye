@@ -32,7 +32,7 @@ class GenericModel:
 		del self._aData[attr]
 
 	def isScalar(self, value):
-			return isinstance(value,(type(None),str,int,float,bool))
+		return isinstance(value,(type(None),str,int,float,bool))
 
 	def addx(self, attr, *args, **kwargs):
 		if attr not in self._aData.keys():
@@ -49,7 +49,7 @@ class GenericModel:
 
 	def __getattr__(self, method):
 		try:
-			if method in ("__str_", "__repr__") :
+			if method in ("__str__", "__repr__") :
 				def default(*args, **kwargs):
 					return str(self.asDict())
 				return default
