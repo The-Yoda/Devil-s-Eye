@@ -1,1 +1,1 @@
-__all__ = ['configmanager', 'genericmodel', 'objectfactory']
+__all__ = ['configmanager', 'genericmodel', 'objectfactory', 'sample']

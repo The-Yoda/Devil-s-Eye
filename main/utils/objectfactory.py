@@ -52,9 +52,8 @@ Ex :  If a user needs an instance of a class (whose name is specified in config)
 			 ObjectFactory.getMongoDb()
 			 It'll return you mongodb class instance.
 	Usage :
-	"""
-myclass1 = ObjectFactory.getDb() 
-print myclass1.findById("514ea3664443cf4cd93b2897", 'user')
-myclass2 = ObjectFactory.getMongoDb()
-print myclass2.findById("514ea3664443cf4cd93b2897", 'user').getName()
-
+		myclass1 = ObjectFactory.getDb() 
+		print myclass1.findById("514ea3664443cf4cd93b2897", 'user')
+		myclass2 = ObjectFactory.getMongoDb()
+		print myclass2.findById("514ea3664443cf4cd93b2897", 'user').getName()
+"""

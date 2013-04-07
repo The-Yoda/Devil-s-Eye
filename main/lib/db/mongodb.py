@@ -8,7 +8,7 @@ class MongoDb :
 	def __init__(self, dbName = None, host = None, port = None) :
 		_config = ConfigManager.getDbConfig()
 		_host = _config.getHost() if (host == None) else host
-		_port = _config.getPort() if (port == None) else port
+		_port = int(_config.getPort()) if (port == None) else port
 		_dbName = _config.getDb() if (dbName == None) else dbName
 		connection = MongoClient(_host, _port)
 		self._db = connection[_dbName]
